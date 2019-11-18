@@ -8,9 +8,17 @@
     <h1>
         HTTP GET test
     </h1>
-   <form action="/animal_notdb">
+   <form action="/animal_notdb" method="get">
        <input type="text" name="name" placeholder="dog">
        <input type="submit" value="search">
    </form>
+    <h1>
+        HTTP POST test
+    </h1>
+    <form action="/animal_notdb" method="post">
+        <input type="text" name="name" placeholder="frog">
+        <input type="submit" value="insert">
+    </form>
+
 </body>
 </html>

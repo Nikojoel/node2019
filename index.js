@@ -4,6 +4,7 @@ const express = require('express');
 const connection = require('./module/db.js');
 
 const app = express();
+const bodyParser = require('body-parser');
 
 app.use(express.static('public'));
 
@@ -19,6 +20,7 @@ app.get('/animal', async (req, res) => {
 	}
 });
 
+// HTTP GET
 app.get('/animal_notdb', async (req, res) => {
 	console.log(req);
 	//res.send(`query params?" ${req.query.moro}`);
@@ -30,6 +32,16 @@ app.get('/animal_notdb', async (req, res) => {
 	}
 });
 
+// HTTP POST
+app.post('/animal_notdb', bodyParser.urlencoded(), async (req, res) => {
+	try {
+		const [result] = await connection.query('INSERT INTO animal (name) VALUES (?)', [req.body.name]);
+		res.json(result);
+	} catch (e) {
+		console.log(e);
+		res.send('db error');
+	}
+});
 
 app.get('/demo', (req, res) => {
 	res.send('demo');
