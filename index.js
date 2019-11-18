@@ -10,8 +10,7 @@ app.use(express.static('public'));
 
 app.get('/animal', async (req, res) => {
 	try {
-		const results = await animals.getAll();
-		res.json(results);
+		res.json(await animals.getAll());
 	} catch (e) {
 		console.log(e);
 	}
