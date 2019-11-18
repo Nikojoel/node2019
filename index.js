@@ -23,7 +23,7 @@ app.get('/animal_notdb', async (req, res) => {
 	console.log(req);
 	//res.send(`query params?" ${req.query.moro}`);
 	try {
-		const [results] = await connection.query ("SELECT * FROM animal WHERE name LIKE ?", [req.query.name]);
+		const [results] = await connection.query ("SELECT * FROM animal WHERE name LIKE ?", [req.query.name, req.query.family]);
 		res.json(results);
 	} catch (e) {
 		console.log(e);
