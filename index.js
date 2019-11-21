@@ -17,7 +17,7 @@ app.get('/animal', async (req, res) => {
 });
 
 // HTTP GET
-app.get('/animal_notdb', async (req, res) => {
+app.get('/animal', async (req, res) => {
 	console.log(req);
 	try {
 		res.json(await animals.search(req.query.name));
@@ -28,7 +28,7 @@ app.get('/animal_notdb', async (req, res) => {
 });
 
 // HTTP POST
-app.post('/animal_notdb', bodyParser.urlencoded({extended: true}), async (req, res) => {
+app.post('/animal', bodyParser.urlencoded({extended: true}), async (req, res) => {
 	try {
 		res.json(await animals.insert(req.body.name));
 	} catch (e) {
