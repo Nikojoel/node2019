@@ -4,6 +4,16 @@ const express = require('express');
 const animals = require('./module/animal.js');
 
 const app = express();
+
+if (process.env.SERVER === "dev_localhost") {
+	require("./secure/localhost")(app);
+} else {
+	require("./secure/server")(app);
+	app.listen(3000, () => {
+		console.log('server app start?');
+	});
+}
+
 const bodyParser = require('body-parser');
 
 app.use(express.static('public'));
@@ -37,10 +47,17 @@ app.post('/animal', bodyParser.urlencoded({extended: true}), async (req, res) =>
 	}
 });
 
+// HTTPS or HTTP check
+app.get("/", (req, res) => {
+	if (req.secure) {
+		res.send("Hello secure");
+	} else {
+		res.send("Hello from my Node server")
+	}
+});
+
 app.get('/demo', (req, res) => {
 	res.send('demo');
 });
 
-app.listen(3000, () => {
-	console.log('server app start?');
-});
+
